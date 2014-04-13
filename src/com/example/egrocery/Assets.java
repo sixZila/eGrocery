@@ -75,7 +75,7 @@ public class Assets {
 		String selection = ItemList._ID + " LIKE ?";
 		String[] selectionArgs = { String.valueOf(i.id) };
 
-		int count = database.update(ItemList.TABLE_NAME, values, selection, selectionArgs);
+		database.update(ItemList.TABLE_NAME, values, selection, selectionArgs);
 	}
 	
 	public Item addItem(String name, String category, String list) {
@@ -98,11 +98,10 @@ public class Assets {
 	public void addList(String name) {
 		database = db.getWritableDatabase();
 		listView.add(name);
-		long rowId;
 		ContentValues values = new ContentValues();
 		values.put(MainList.LIST_NAME, name);
 		
-		rowId = database.insert(MainList.TABLE_NAME, null, values);
+		database.insert(MainList.TABLE_NAME, null, values);
 		db.close();
 	}
 }

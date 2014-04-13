@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -55,8 +54,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             
             viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                   @Override
-                  public void onCheckedChanged(CompoundButton buttonView,
-                      boolean isChecked) {
+                  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Item element = (Item) viewHolder.checkbox.getTag();
                     element.setSelected(buttonView.isChecked());
                     assets.updateItem(element);
@@ -130,5 +128,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     static class ViewHolder {
         protected TextView text;
         protected CheckBox checkbox;
+    }
+    
+    public void setListDataChild(HashMap<String, List<Item>> _listDataChild) {
+    	this._listDataChild = _listDataChild;
     }
 }

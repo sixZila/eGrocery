@@ -15,7 +15,6 @@ public class AddItemActivity extends Activity{
 	private Button cancelButton;
 	private EditText itemNameField;
 	private Spinner category;
-	private Assets assets;
 	private String list;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,6 @@ public class AddItemActivity extends Activity{
         Intent i = getIntent();
         list = i.getStringExtra("list");
         setTitle("Add Item to " + list);
-        assets = new Assets(getApplicationContext());
         category = (Spinner) findViewById(R.id.categoryChooser);
         itemNameField = (EditText) findViewById(R.id.itemNameField);
         addButton = (Button) this.findViewById(R.id.addItem);

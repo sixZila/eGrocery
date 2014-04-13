@@ -1,12 +1,12 @@
 package com.example.egrocery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
@@ -18,10 +18,10 @@ public class ItemActivity extends Activity{
 	private ExpandableListAdapter listAdapter;
 	private ExpandableListView expListView;
 	private List<String> listDataHeader;
-	private List<String> categories;
 	private HashMap<String, List<Item>> listDataChild;
+	private HashMap<String, List<Item>> listDataChildChecked;
+	private HashMap<String, List<Item>> listDataChildUnchecked;
 	private ArrayList<Item> items;
-	private boolean[] hasCategory; 
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,92 +45,34 @@ public class ItemActivity extends Activity{
 	}
 	
 	private void prepareListData() {
-		items = assets.getItemView(list);
-		hasCategory = new boolean[20];
-		categories = new ArrayList<String>();
+		if(items == null) {
+			items = assets.getItemView(list);
+		}
+		listDataHeader = new ArrayList<String>();
 		
 		for(int i = 0; i < items.size(); i++) {
-			if(!categories.contains(items.get(i).getCategory())) {
-				categories.add(items.get(i).getCategory());
+			if(!listDataHeader.contains(items.get(i).getCategory())) {
+				listDataHeader.add(items.get(i).getCategory());
 			}
 		}
 		
-		listDataHeader = new ArrayList<String>();
+		Collections.sort(listDataHeader);
+		
         listDataChild = new HashMap<String, List<Item>>();
+        listDataChildChecked = new HashMap<String, List<Item>>();
+		listDataChildUnchecked = new HashMap<String, List<Item>>();
         
-        if(categories.contains("Canned Goods")) {
-        	listDataHeader.add("Canned Goods");
-        	List<Item> cannedGoods = new ArrayList<Item>();
+        for(int i = 0; i < listDataHeader.size(); i++) {
+        	List<Item> itemList = new ArrayList<Item>();
         	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Canned Goods")) {
-    				Log.d("Grocery", items.get(i).getName());
-    				cannedGoods.add(items.get(i));
+        	for(int j = 0; j < items.size(); j++) {
+    			if(items.get(j).getCategory().equals(listDataHeader.get(i))) {
+    				itemList.add(items.get(j));
     			}
     		}
         	
-        	listDataChild.put("Canned Goods", cannedGoods);
+        	listDataChild.put(listDataHeader.get(i), itemList);
         }
-        if(categories.contains("Fruits and Vegetables")) {
-        	listDataHeader.add("Fruits and Vegetables");
-        	List<Item> fruitsVeggies = new ArrayList<Item>();
-        	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Fruits and Vegetables")) {
-    				fruitsVeggies.add(items.get(i));
-    			}
-    		}
-        	
-        	listDataChild.put("Fruits and Vegetables", fruitsVeggies);
-        }
-        if(categories.contains("Meats")) {
-        	listDataHeader.add("Meats");
-        	List<Item> meats = new ArrayList<Item>();
-        	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Meats")) {
-    				meats.add(items.get(i));
-    			}
-    		}
-
-        	listDataChild.put("Meats", meats);
-		}
-        if(categories.contains("Seafood")) {
-        	listDataHeader.add("Seafood");
-        	List<Item> seafood = new ArrayList<Item>();
-        	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Seafood")) {
-    				seafood.add(items.get(i));
-    			}
-    		}
-
-        	listDataChild.put("Seafood", seafood);
-		}
-		if(categories.contains("Snacks")) {
-			listDataHeader.add("Snacks");
-        	List<Item> snacks = new ArrayList<Item>();
-        	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Snack")) {
-    				snacks.add(items.get(i));
-    			}
-    		}
-
-        	listDataChild.put("Snacks", snacks);
-		}       
-		if(categories.contains("Toiletries")) {
-        	listDataHeader.add("Toiletries");
-        	List<Item> toiletries = new ArrayList<Item>();
-        	
-        	for(int i = 0; i < items.size(); i++) {
-    			if(items.get(i).getCategory().equals("Toiletries")) {
-    				toiletries.add(items.get(i));
-    			}
-    		}
-
-        	listDataChild.put("Toiletries", toiletries);
-		}
 	}
 	
 	//FOR CONTEXT OPTIONS
@@ -143,12 +85,62 @@ public class ItemActivity extends Activity{
     
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+    	List<Item> temp;
+    	List<Item> temp2;
         switch (item.getItemId()) {
             case R.id.addItemButton:
             	Intent addItemView = new Intent(getApplicationContext(), AddItemActivity.class);
             	addItemView.putExtra("list", list);
             	startActivityForResult(addItemView, 1);
                 return true;
+            case R.id.showAllButton:
+            	listAdapter.setListDataChild(listDataChild);
+            	listAdapter.notifyDataSetChanged();
+            	return true;
+            case R.id.showCheckedButton:
+            	for(int i = 0; i < listDataHeader.size(); i++) {
+            		temp = listDataChild.get(listDataHeader.get(i));
+            		if(listDataChildChecked.get(listDataHeader.get(i)) != null) {
+	            		temp2 = listDataChildChecked.get(listDataHeader.get(i));
+	            		
+	            		if(!temp2.isEmpty()) {
+	            			temp2.clear();
+	            		}
+            		} else {
+            			temp2 = new ArrayList<Item>();
+            			listDataChildChecked.put(listDataHeader.get(i), temp2);
+            		}
+            		for(int j = 0; j < temp.size(); j++) {
+            			if(temp.get(j).isSelected()) {
+            				temp2.add(temp.get(j));
+            			}
+            		}
+            	}
+            	listAdapter.setListDataChild(listDataChildChecked);
+            	listAdapter.notifyDataSetChanged();
+            	return true;
+            case R.id.showUncheckedButton:
+            	for(int i = 0; i < listDataHeader.size(); i++) {
+            		temp = listDataChild.get(listDataHeader.get(i));
+            		if(listDataChildUnchecked.get(listDataHeader.get(i)) != null) {
+	            		temp2 = listDataChildUnchecked.get(listDataHeader.get(i));
+	            		
+	            		if(!temp2.isEmpty()) {
+	            			temp2.clear();
+	            		}
+            		} else {
+            			temp2 = new ArrayList<Item>();
+            			listDataChildUnchecked.put(listDataHeader.get(i), temp2);
+            		}
+            		for(int j = 0; j < temp.size(); j++) {
+            			if(!temp.get(j).isSelected()) {
+            				temp2.add(temp.get(j));
+            			}
+            		}
+            	}
+            	listAdapter.setListDataChild(listDataChildUnchecked);
+            	listAdapter.notifyDataSetChanged();
+            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -159,57 +151,20 @@ public class ItemActivity extends Activity{
     	  if (requestCode == 1) {
 
     	     if(resultCode == RESULT_OK){
-    	    	 Item item = assets.addItem(data.getStringExtra("name"), data.getStringExtra("category"), list);
+    	    	 String category, name;
+    	    	 name = data.getStringExtra("name");
+    	    	 category = data.getStringExtra("category");
+    	    	 Item item = assets.addItem(name, category, list);
     	    	 
-    	         if(data.getStringExtra("category").equals("Canned Goods")) {
-    	        	if(listDataChild.get("Canned Goods") == null) {
-    	        		listDataChild.put("Canned Goods", new ArrayList<Item>());
-    	        		listDataHeader.add("Canned Goods");
-    	        	}
+    	         if(listDataChild.get(category) == null) {
+    	        	 listDataChild.put(category, new ArrayList<Item>());
+    	        	 listDataHeader.add(category);
+    	         }
+    	         
+    	         Collections.sort(listDataHeader);
     	        	
-    	         	listDataChild.get("Canned Goods").add(item);
+    	         listDataChild.get(category).add(item);
     	         	
-    	         } else if(data.getStringExtra("category").equals("Fruits and Vegetables")) {
-    	        	 if(listDataChild.get("Fruits and Vegetables") == null) {
-     	        		listDataChild.put("Fruits and Vegetables", new ArrayList<Item>());
-     	        		listDataHeader.add("Fruits and Vegetables");
-     	        	}
-    	        	 
-    	        	 listDataChild.get("Fruits and Vegetables").add(item);
-    	        	 
-     	         } else if(data.getStringExtra("category").equals("Meats")) {
-     	        	if(listDataChild.get("Meats") == null) {
-    	        		listDataChild.put("Meats", new ArrayList<Item>());
-    	        		listDataHeader.add("Meats");
-    	        	}
-     	        	
-     	        	listDataChild.get("Meats").add(item);
-     	        	
-      	         } else if(data.getStringExtra("category").equals("Seafood")) {
-      	        	if(listDataChild.get("Seafood") == null) {
-    	        		listDataChild.put("Seafood", new ArrayList<Item>());
-    	        		listDataHeader.add("Seafood");
-    	        	}
-      	        	
-      	        	listDataChild.get("Seafood").add(item);
-      	        	
-      	         } else if(data.getStringExtra("category").equals("Snacks")) {
-      	        	if(listDataChild.get("Snacks") == null) {
-    	        		listDataChild.put("Snacks", new ArrayList<Item>());
-    	        		listDataHeader.add("Snacks");
-    	        	}
-      	        	
-      	        	listDataChild.get("Snacks").add(item);
-      	        	
-      	         } else if(data.getStringExtra("category").equals("Toiletries")) {
-      	        	if(listDataChild.get("Toiletries") == null) {
-    	        		listDataChild.put("Toiletries", new ArrayList<Item>());
-    	        		listDataHeader.add("Toiletries");
-    	        	}
-      	        	
-      	        	listDataChild.get("Toiletries").add(item);
-      	        	
-      	         }
     	         listAdapter.notifyDataSetChanged();
     	     }
     	     if (resultCode == RESULT_CANCELED) {

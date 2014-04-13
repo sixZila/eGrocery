@@ -5,13 +5,15 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_marginTop="18dp"
         android:text="Name:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:padding="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#F0F0F0" />
 
     <Button
         android:id="@+id/addItem"
@@ -31,24 +33,6 @@
         android:layout_marginTop="14dp"
         android:text="Cancel" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/itemNameField"
-        android:layout_marginTop="16dp"
-        android:text="Item Category:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Spinner
-        android:id="@+id/categoryChooser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="14dp" />
-
     <EditText
         android:id="@+id/itemNameField"
         android:layout_width="wrap_content"
@@ -56,11 +40,27 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="15dp"
+        android:padding="10dp"
         android:ems="10"
-        android:hint="Item Name" >
+        android:hint="Item Name" />
 
-        <requestFocus />
-    </EditText>
+    <Spinner
+        android:id="@+id/categoryChooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:layout_below="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/itemNameField"
+        android:background="#F0F0F0"
+        android:padding="10dp"
+        android:text="Item Category:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

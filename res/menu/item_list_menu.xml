@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/addItemButton" android:title="Add Item"></item>
-    
+    <item android:id="@+id/showAllButton" android:title="Show All"></item>
+    <item android:id="@+id/showCheckedButton" android:title="Show Checked"></item>
+    <item android:id="@+id/showUncheckedButton" android:title="Show Unchecked"></item>
 
 </menu>

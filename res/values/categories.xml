@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category_items">
+        <item>Baby Needs</item>
+        <item>Bathroom Essentials</item>
+        <item>Baked Goods</item>
         <item>Canned Goods</item>
+        <item>Dairy</item>
+        <item>Drinks</item>
+        <item>Frozen Foods</item>
         <item>Fruits and Vegetables</item>
+        <item>Kitchenware</item>
+        <item>Laundry</item>
         <item>Meats</item>
+        <item>Noodles</item>
+        <item>Pet Care</item>
+        <item>Rice</item>
+        <item>Sauces and Spices</item>
         <item>Snacks</item>
         <item>Seafood</item>
         <item>Toiletries</item>
+        <item>Miscellaneous</item>
     </string-array>
 </resources>
