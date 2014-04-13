@@ -3,7 +3,6 @@ package com.example.egrocery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +19,8 @@ public class ItemActivity extends Activity{
 	private ExpandableListView expListView;
 	private List<String> listDataHeader;
 	private List<String> categories;
-	private HashMap<String, List<String>> listDataChild;
-	private ArrayList<Assets.Item> items;
+	private HashMap<String, List<Item>> listDataChild;
+	private ArrayList<Item> items;
 	private boolean[] hasCategory; 
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,16 +56,16 @@ public class ItemActivity extends Activity{
 		}
 		
 		listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataChild = new HashMap<String, List<Item>>();
         
         if(categories.contains("Canned Goods")) {
         	listDataHeader.add("Canned Goods");
-        	List<String> cannedGoods = new ArrayList<String>();
+        	List<Item> cannedGoods = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Canned Goods")) {
     				Log.d("Grocery", items.get(i).getName());
-    				cannedGoods.add(items.get(i).getName());
+    				cannedGoods.add(items.get(i));
     			}
     		}
         	
@@ -74,11 +73,11 @@ public class ItemActivity extends Activity{
         }
         if(categories.contains("Fruits and Vegetables")) {
         	listDataHeader.add("Fruits and Vegetables");
-        	List<String> fruitsVeggies = new ArrayList<String>();
+        	List<Item> fruitsVeggies = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Fruits and Vegetables")) {
-    				fruitsVeggies.add(items.get(i).getName());
+    				fruitsVeggies.add(items.get(i));
     			}
     		}
         	
@@ -86,11 +85,11 @@ public class ItemActivity extends Activity{
         }
         if(categories.contains("Meats")) {
         	listDataHeader.add("Meats");
-        	List<String> meats = new ArrayList<String>();
+        	List<Item> meats = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Meats")) {
-    				meats.add(items.get(i).getName());
+    				meats.add(items.get(i));
     			}
     		}
 
@@ -98,11 +97,11 @@ public class ItemActivity extends Activity{
 		}
         if(categories.contains("Seafood")) {
         	listDataHeader.add("Seafood");
-        	List<String> seafood = new ArrayList<String>();
+        	List<Item> seafood = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Seafood")) {
-    				seafood.add(items.get(i).getName());
+    				seafood.add(items.get(i));
     			}
     		}
 
@@ -110,11 +109,11 @@ public class ItemActivity extends Activity{
 		}
 		if(categories.contains("Snacks")) {
 			listDataHeader.add("Snacks");
-        	List<String> snacks = new ArrayList<String>();
+        	List<Item> snacks = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Snack")) {
-    				snacks.add(items.get(i).getName());
+    				snacks.add(items.get(i));
     			}
     		}
 
@@ -122,11 +121,11 @@ public class ItemActivity extends Activity{
 		}       
 		if(categories.contains("Toiletries")) {
         	listDataHeader.add("Toiletries");
-        	List<String> toiletries = new ArrayList<String>();
+        	List<Item> toiletries = new ArrayList<Item>();
         	
         	for(int i = 0; i < items.size(); i++) {
     			if(items.get(i).getCategory().equals("Toiletries")) {
-    				toiletries.add(items.get(i).getName());
+    				toiletries.add(items.get(i));
     			}
     		}
 
@@ -159,19 +158,20 @@ public class ItemActivity extends Activity{
 
     	  if (requestCode == 1) {
 
-    	     if(resultCode == RESULT_OK){      
+    	     if(resultCode == RESULT_OK){
+    	    	 Item item = new Item(data.getStringExtra("name"), data.getStringExtra("category"), false);
     	         if(data.getStringExtra("category").equals("Canned Goods")) {
-    	         	listDataChild.get("Canned Goods").add(data.getStringExtra("name"));
+    	         	listDataChild.get("Canned Goods").add(item);
     	         } else if(data.getStringExtra("category").equals("Fruits and Vegetables")) {
-    	        	 listDataChild.get("Fruits and Vegetables").add(data.getStringExtra("name"));
+    	        	 listDataChild.get("Fruits and Vegetables").add(item);
      	         } else if(data.getStringExtra("category").equals("Meats")) {
-     	        	listDataChild.get("Meats").add(data.getStringExtra("name"));
+     	        	listDataChild.get("Meats").add(item);
       	         } else if(data.getStringExtra("category").equals("Seafood")) {
-      	        	listDataChild.get("Seafood").add(data.getStringExtra("name"));
+      	        	listDataChild.get("Seafood").add(item);
       	         } else if(data.getStringExtra("category").equals("Snacks")) {
-      	        	listDataChild.get("Snacks").add(data.getStringExtra("name"));
+      	        	listDataChild.get("Snacks").add(item);
       	         } else if(data.getStringExtra("category").equals("Toiletries")) {
-      	        	listDataChild.get("Toiletries").add(data.getStringExtra("name"));
+      	        	listDataChild.get("Toiletries").add(item);
       	         }
     	         listAdapter.notifyDataSetChanged();
     	     }
