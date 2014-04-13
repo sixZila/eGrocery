@@ -160,22 +160,59 @@ public class ItemActivity extends Activity{
 
     	     if(resultCode == RESULT_OK){
     	    	 Item item = new Item(data.getStringExtra("name"), data.getStringExtra("category"), false);
+    	    	 
     	         if(data.getStringExtra("category").equals("Canned Goods")) {
+    	        	if(listDataChild.get("Canned Goods") == null) {
+    	        		listDataChild.put("Canned Goods", new ArrayList<Item>());
+    	        		listDataHeader.add("Canned Goods");
+    	        	}
+    	        	
     	         	listDataChild.get("Canned Goods").add(item);
+    	         	
     	         } else if(data.getStringExtra("category").equals("Fruits and Vegetables")) {
+    	        	 if(listDataChild.get("Fruits and Vegetables") == null) {
+     	        		listDataChild.put("Fruits and Vegetables", new ArrayList<Item>());
+     	        		listDataHeader.add("Fruits and Vegetables");
+     	        	}
+    	        	 
     	        	 listDataChild.get("Fruits and Vegetables").add(item);
+    	        	 
      	         } else if(data.getStringExtra("category").equals("Meats")) {
+     	        	if(listDataChild.get("Meats") == null) {
+    	        		listDataChild.put("Meats", new ArrayList<Item>());
+    	        		listDataHeader.add("Meats");
+    	        	}
+     	        	
      	        	listDataChild.get("Meats").add(item);
+     	        	
       	         } else if(data.getStringExtra("category").equals("Seafood")) {
+      	        	if(listDataChild.get("Seafood") == null) {
+    	        		listDataChild.put("Seafood", new ArrayList<Item>());
+    	        		listDataHeader.add("Seafood");
+    	        	}
+      	        	
       	        	listDataChild.get("Seafood").add(item);
+      	        	
       	         } else if(data.getStringExtra("category").equals("Snacks")) {
+      	        	if(listDataChild.get("Snacks") == null) {
+    	        		listDataChild.put("Snacks", new ArrayList<Item>());
+    	        		listDataHeader.add("Snacks");
+    	        	}
+      	        	
       	        	listDataChild.get("Snacks").add(item);
+      	        	
       	         } else if(data.getStringExtra("category").equals("Toiletries")) {
+      	        	if(listDataChild.get("Toiletries") == null) {
+    	        		listDataChild.put("Toiletries", new ArrayList<Item>());
+    	        		listDataHeader.add("Toiletries");
+    	        	}
+      	        	
       	        	listDataChild.get("Toiletries").add(item);
+      	        	
       	         }
     	         listAdapter.notifyDataSetChanged();
     	     }
-    	     if (resultCode == RESULT_CANCELED) {    
+    	     if (resultCode == RESULT_CANCELED) {
     	         //Do nothing?
     	     }
     	  }

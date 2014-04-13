@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends Activity {
@@ -22,6 +21,7 @@ public class MainActivity extends Activity {
 	private Assets assets;
 	private ArrayAdapter<String> adapter;
 	private Context context;
+	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

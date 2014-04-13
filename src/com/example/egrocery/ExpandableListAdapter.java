@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -28,7 +31,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .get(childPosititon).getName();
+                .get(childPosititon);
     }
  
     @Override
@@ -39,20 +42,36 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
- 
-        final String childText = (String) getChild(groupPosition, childPosition);
- 
+    	View view = null;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item, null);
-        }
- 
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.lblListItem);
- 
-        txtListChild.setText(childText);
-        return convertView;
+            view = infalInflater.inflate(R.layout.checkbox, null);
+            final ViewHolder viewHolder = new ViewHolder();
+            viewHolder.text = (TextView) view.findViewById(R.id.label);
+            viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
+            viewHolder.checkbox
+                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                  @Override
+                  public void onCheckedChanged(CompoundButton buttonView,
+                      boolean isChecked) {
+                    Item element = (Item) viewHolder.checkbox
+                        .getTag();
+                    element.setSelected(buttonView.isChecked());
+
+                  }
+                });
+            view.setTag(viewHolder);
+            viewHolder.checkbox.setTag(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition));
+          } else {
+            view = convertView;
+            ((ViewHolder) view.getTag()).checkbox.setTag(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition));
+          }
+          ViewHolder holder = (ViewHolder) view.getTag();
+          holder.text.setText(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).getName());
+          holder.checkbox.setChecked(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).isSelected());
+        return view;
     }
  
     @Override
@@ -104,5 +123,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
     
-    
+    static class ViewHolder {
+        protected TextView text;
+        protected CheckBox checkbox;
+    }
 }
