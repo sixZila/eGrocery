@@ -1,6 +1,7 @@
 package com.example.egrocery;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,7 +18,8 @@ public class Assets {
 	private static SQLiteDatabase database;
 	private boolean gotList;
 	private boolean gotItems;
-	private String[] getDBList = {MainList.LIST_NAME};
+	private HashMap<String, Long> listID;
+	private String[] getDBList = {MainList._ID, MainList.LIST_NAME};
 	private String[] getDBItems = {ItemList._ID, ItemList.ITEM_NAME, ItemList.CATEGORY, ItemList.SELECTED};
 	
 	public Assets(Context c) {
@@ -28,16 +30,20 @@ public class Assets {
 		itemView = new ArrayList<Item>();
 		gotList = false;
 		gotItems = false;
+		listID = new HashMap<String, Long>();
 	}
 	
+	//GET SHOPPING LIST
 	public ArrayList<String> getlistView() {
 		if(!gotList) {
 			database = db.getReadableDatabase();
 			Cursor c = database.query(MainList.TABLE_NAME, getDBList, null, null, null, null, null);
 			
 			if(c.moveToFirst()) {
+				
 				while (!c.isAfterLast()) {
-					listView.add(c.getString(0));
+					listID.put(c.getString(1), c.getLong(0));
+					listView.add(c.getString(1));
 					c.moveToNext();
 				}
 			}
@@ -47,6 +53,7 @@ public class Assets {
 		return listView;
 	}
 	
+	//GET ITEMS
 	public ArrayList<Item> getItemView(String list) {
 		if(!gotItems) {
 			database = db.getReadableDatabase();
@@ -64,6 +71,7 @@ public class Assets {
 		return itemView;
 	}
 	
+	//UPDATE ITEM STATUS IN DB
 	public void updateItem(Item i) {
 		database = db.getWritableDatabase();
 
@@ -78,6 +86,7 @@ public class Assets {
 		database.update(ItemList.TABLE_NAME, values, selection, selectionArgs);
 	}
 	
+	//ADD AN ITEM TO DB
 	public Item addItem(String name, String category, String list) {
 		database = db.getWritableDatabase();
 		long rowId;
@@ -95,13 +104,28 @@ public class Assets {
 		return i;
 	}
 	
+	//ADD A NEW SHOPPING LIST TO DB
 	public void addList(String name) {
 		database = db.getWritableDatabase();
 		listView.add(name);
 		ContentValues values = new ContentValues();
 		values.put(MainList.LIST_NAME, name);
 		
-		database.insert(MainList.TABLE_NAME, null, values);
+		long row = database.insert(MainList.TABLE_NAME, null, values);
+		listID.put(name, row);
+		db.close();
+	}
+	
+	//DELETE LIST
+	public void deleteList(String name) {
+		database = db.getWritableDatabase();
+		
+		String selection = MainList._ID + " LIKE ?";
+		String[] selectionArgs = { String.valueOf(listID.get(name)) };
+		listView.remove(name);
+		
+		database.delete(MainList.TABLE_NAME, selection, selectionArgs);
+		
 		db.close();
 	}
 }

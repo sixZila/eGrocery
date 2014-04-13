@@ -11,5 +11,6 @@
     <string name="cancel">Cancel</string>
     <string name="emptyList">Add a new list to begin.</string>
     <string name="emptyItem">There are no items in this list.</string>
+    <string name="delete">Delete</string>
 
 </resources>

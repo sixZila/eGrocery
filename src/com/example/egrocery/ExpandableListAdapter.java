@@ -19,14 +19,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<Item>> _listDataChild;
-    Assets assets;
+    private Assets assets;
+    private int status;
+    private ItemActivity itemActivity;
  
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-            HashMap<String, List<Item>> listChildData, Assets assets) {
+            HashMap<String, List<Item>> listChildData, Assets assets, ItemActivity itemActivity) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
         this.assets = assets;
+        status = 0;
+        this.itemActivity = itemActivity;
     }
  
     @Override
@@ -41,7 +45,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
  
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
     	View view = null;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,12 +56,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             viewHolder.text = (TextView) view.findViewById(R.id.label);
             viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
             
+            //UPDATE DATA WHEN AN ITEM IS CHECKED
             viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                   @Override
                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Item element = (Item) viewHolder.checkbox.getTag();
-                    element.setSelected(buttonView.isChecked());
-                    assets.updateItem(element);
+	                    Item element = (Item) viewHolder.checkbox.getTag();
+	                    element.setSelected(buttonView.isChecked());
+	                    assets.updateItem(element);
+	                    
+	                    if(status == 1){ 
+	                    	itemActivity.prepareUncheckedData();
+	                    } else if(status == 2) {
+	                    	itemActivity.prepareCheckedData();
+	                    }
                   }
             });
             
@@ -132,5 +143,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     
     public void setListDataChild(HashMap<String, List<Item>> _listDataChild) {
     	this._listDataChild = _listDataChild;
+    }
+    
+    public void setStatus(int status) {
+    	this.status = status;
     }
 }

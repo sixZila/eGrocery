@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent" >
-
-    <ExpandableListView
-        android:id="@+id/lvExp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/emptyItemList"
@@ -17,5 +11,41 @@
         android:text="@string/emptyItem"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#B8B8B8" />
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/showAllItemButton" >
+
+    </ExpandableListView>
+
+    <Button
+        android:id="@+id/showUncheckedItemButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvExp"
+        android:layout_alignParentRight="true"
+        android:text="Unchecked" />
+
+    <Button
+        android:id="@+id/showCheckedItemButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvExp"
+        android:layout_centerHorizontal="true"
+        android:text="Checked" />
+
+    <Button
+        android:id="@+id/showAllItemButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Show All" />
 
 </RelativeLayout>

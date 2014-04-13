@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ItemActivity extends Activity{
 	
@@ -19,6 +24,9 @@ public class ItemActivity extends Activity{
 	private TextView emptyView;
 	private ExpandableListAdapter listAdapter;
 	private ExpandableListView expListView;
+	private Button showAllButton;
+	private Button showCheckedButton;
+	private Button showUncheckedButton;
 	private List<String> listDataHeader;
 	private HashMap<String, List<Item>> listDataChild;
 	private HashMap<String, List<Item>> listDataChildChecked;
@@ -32,6 +40,9 @@ public class ItemActivity extends Activity{
         //INITIALIZE UI VARIABLES
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         emptyView = (TextView) findViewById(R.id.emptyItemList);
+        showAllButton = (Button) findViewById(R.id.showAllItemButton);
+        showCheckedButton = (Button) findViewById(R.id.showCheckedItemButton);
+        showUncheckedButton = (Button) findViewById(R.id.showUncheckedItemButton);
 
         Intent i = getIntent();
         list = i.getStringExtra("title");
@@ -41,13 +52,99 @@ public class ItemActivity extends Activity{
         // preparing list data
         prepareListData();
  
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, assets);
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, assets, this);
  
         // setting list adapter
         expListView.setEmptyView(emptyView);
         expListView.setAdapter(listAdapter);
+        showAllButton.setBackgroundColor(Color.GRAY);
+    	showCheckedButton.setBackgroundColor(Color.WHITE);
+    	showUncheckedButton.setBackgroundColor(Color.WHITE);
+        
+        showAllButton.setOnClickListener(new View.OnClickListener() {
+            
+			public void onClick(View v) {
+            	listAdapter.setListDataChild(listDataChild);
+            	listAdapter.notifyDataSetChanged();
+            	listAdapter.setStatus(0);
+            	showAllButton.setBackgroundColor(Color.GRAY);
+            	showCheckedButton.setBackgroundColor(Color.WHITE);
+            	showUncheckedButton.setBackgroundColor(Color.WHITE);
+            }
+        });
+        showCheckedButton.setOnClickListener(new View.OnClickListener() {
+            
+			public void onClick(View v) {
+            	prepareCheckedData();
+            	showAllButton.setBackgroundColor(Color.WHITE);
+            	showCheckedButton.setBackgroundColor(Color.GRAY);
+            	showUncheckedButton.setBackgroundColor(Color.WHITE);
+            }
+        });
+        showUncheckedButton.setOnClickListener(new View.OnClickListener() {
+           
+			public void onClick(View v) {
+            	prepareUncheckedData();
+            	showAllButton.setBackgroundColor(Color.WHITE);
+            	showCheckedButton.setBackgroundColor(Color.WHITE);
+            	showUncheckedButton.setBackgroundColor(Color.GRAY);
+            }
+        });
 	}
 	
+	public void prepareUncheckedData() {
+		List<Item> temp;
+    	List<Item> temp2;
+    	for(int i = 0; i < listDataHeader.size(); i++) {
+    		temp = listDataChild.get(listDataHeader.get(i));
+    		if(listDataChildUnchecked.get(listDataHeader.get(i)) != null) {
+        		temp2 = listDataChildUnchecked.get(listDataHeader.get(i));
+        		
+        		if(!temp2.isEmpty()) {
+        			temp2.clear();
+        		}
+    		} else {
+    			temp2 = new ArrayList<Item>();
+    			listDataChildUnchecked.put(listDataHeader.get(i), temp2);
+    		}
+    		for(int j = 0; j < temp.size(); j++) {
+    			if(!temp.get(j).isSelected()) {
+    				temp2.add(temp.get(j));
+    			}
+    		}
+    	}
+    	listAdapter.setListDataChild(listDataChildUnchecked);
+    	listAdapter.notifyDataSetChanged();
+    	listAdapter.setStatus(1);
+	}
+	
+	public void prepareCheckedData() {
+		List<Item> temp;
+    	List<Item> temp2;
+    	for(int i = 0; i < listDataHeader.size(); i++) {
+    		temp = listDataChild.get(listDataHeader.get(i));
+    		if(listDataChildChecked.get(listDataHeader.get(i)) != null) {
+        		temp2 = listDataChildChecked.get(listDataHeader.get(i));
+        		
+        		if(!temp2.isEmpty()) {
+        			temp2.clear();
+        		}
+    		} else {
+    			temp2 = new ArrayList<Item>();
+    			listDataChildChecked.put(listDataHeader.get(i), temp2);
+    		}
+    		for(int j = 0; j < temp.size(); j++) {
+    			if(temp.get(j).isSelected()) {
+    				temp2.add(temp.get(j));
+    			}
+    		}
+    	}
+    	listAdapter.setListDataChild(listDataChildChecked);
+    	listAdapter.notifyDataSetChanged();
+    	listAdapter.setStatus(2);
+	}
+	
+	//PREPARE THE SHOPPING LIST
 	private void prepareListData() {
 		if(items == null) {
 			items = assets.getItemView(list);
@@ -87,73 +184,26 @@ public class ItemActivity extends Activity{
         return true;
     }
     
+	//MENU ACTIONS
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-    	List<Item> temp;
-    	List<Item> temp2;
+    	
         switch (item.getItemId()) {
+        	//ADD AN ITEM TO THE LIST
             case R.id.addItemButton:
             	Intent addItemView = new Intent(getApplicationContext(), AddItemActivity.class);
             	addItemView.putExtra("list", list);
             	startActivityForResult(addItemView, 1);
                 return true;
-            case R.id.showAllButton:
-            	listAdapter.setListDataChild(listDataChild);
-            	listAdapter.notifyDataSetChanged();
-            	return true;
-            case R.id.showCheckedButton:
-            	for(int i = 0; i < listDataHeader.size(); i++) {
-            		temp = listDataChild.get(listDataHeader.get(i));
-            		if(listDataChildChecked.get(listDataHeader.get(i)) != null) {
-	            		temp2 = listDataChildChecked.get(listDataHeader.get(i));
-	            		
-	            		if(!temp2.isEmpty()) {
-	            			temp2.clear();
-	            		}
-            		} else {
-            			temp2 = new ArrayList<Item>();
-            			listDataChildChecked.put(listDataHeader.get(i), temp2);
-            		}
-            		for(int j = 0; j < temp.size(); j++) {
-            			if(temp.get(j).isSelected()) {
-            				temp2.add(temp.get(j));
-            			}
-            		}
-            	}
-            	listAdapter.setListDataChild(listDataChildChecked);
-            	listAdapter.notifyDataSetChanged();
-            	return true;
-            case R.id.showUncheckedButton:
-            	for(int i = 0; i < listDataHeader.size(); i++) {
-            		temp = listDataChild.get(listDataHeader.get(i));
-            		if(listDataChildUnchecked.get(listDataHeader.get(i)) != null) {
-	            		temp2 = listDataChildUnchecked.get(listDataHeader.get(i));
-	            		
-	            		if(!temp2.isEmpty()) {
-	            			temp2.clear();
-	            		}
-            		} else {
-            			temp2 = new ArrayList<Item>();
-            			listDataChildUnchecked.put(listDataHeader.get(i), temp2);
-            		}
-            		for(int j = 0; j < temp.size(); j++) {
-            			if(!temp.get(j).isSelected()) {
-            				temp2.add(temp.get(j));
-            			}
-            		}
-            	}
-            	listAdapter.setListDataChild(listDataChildUnchecked);
-            	listAdapter.notifyDataSetChanged();
-            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     
+    //UPDATE LIST AFTER ADDING A NEW ITEM
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
     	  if (requestCode == 1) {
-
+    		 //ADDS ITEM TO LIST
     	     if(resultCode == RESULT_OK){
     	    	 String category, name;
     	    	 name = data.getStringExtra("name");
