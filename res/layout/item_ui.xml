@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/lvExp"
         android:layout_alignParentRight="true"
-        android:text="Unchecked" />
+        android:text="To Get" />
 
     <Button
         android:id="@+id/showCheckedItemButton"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/lvExp"
         android:layout_centerHorizontal="true"
-        android:text="Checked" />
+        android:text="In Cart" />
 
     <Button
         android:id="@+id/showAllItemButton"
