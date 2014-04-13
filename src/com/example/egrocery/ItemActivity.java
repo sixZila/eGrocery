@@ -38,7 +38,7 @@ public class ItemActivity extends Activity{
         // preparing list data
         prepareListData();
  
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, assets);
  
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -159,7 +159,7 @@ public class ItemActivity extends Activity{
     	  if (requestCode == 1) {
 
     	     if(resultCode == RESULT_OK){
-    	    	 Item item = new Item(data.getStringExtra("name"), data.getStringExtra("category"), false);
+    	    	 Item item = assets.addItem(data.getStringExtra("name"), data.getStringExtra("category"), list);
     	    	 
     	         if(data.getStringExtra("category").equals("Canned Goods")) {
     	        	if(listDataChild.get("Canned Goods") == null) {

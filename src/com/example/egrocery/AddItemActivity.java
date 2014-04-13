@@ -40,7 +40,6 @@ public class AddItemActivity extends Activity{
         //ACTION LISTENERES
         addButton.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
-	    		assets.addItem(itemNameField.getText().toString(), category.getSelectedItem().toString(), list);
 	    		Intent returnIntent = new Intent();
 	    		returnIntent.putExtra("name", itemNameField.getText().toString());
 	    		returnIntent.putExtra("category", category.getSelectedItem().toString());

@@ -20,12 +20,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<Item>> _listDataChild;
+    Assets assets;
  
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-            HashMap<String, List<Item>> listChildData) {
+            HashMap<String, List<Item>> listChildData, Assets assets) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+        this.assets = assets;
     }
  
     @Override
@@ -40,37 +42,39 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
  
     @Override
-    public View getChildView(int groupPosition, final int childPosition,
-            boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
     	View view = null;
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.checkbox, null);
+            
             final ViewHolder viewHolder = new ViewHolder();
+            
             viewHolder.text = (TextView) view.findViewById(R.id.label);
             viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
-            viewHolder.checkbox
-                .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+            
+            viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                   @Override
                   public void onCheckedChanged(CompoundButton buttonView,
                       boolean isChecked) {
-                    Item element = (Item) viewHolder.checkbox
-                        .getTag();
+                    Item element = (Item) viewHolder.checkbox.getTag();
                     element.setSelected(buttonView.isChecked());
-
+                    assets.updateItem(element);
                   }
-                });
+            });
+            
             view.setTag(viewHolder);
             viewHolder.checkbox.setTag(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition));
+            
           } else {
             view = convertView;
             ((ViewHolder) view.getTag()).checkbox.setTag(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition));
           }
+        
           ViewHolder holder = (ViewHolder) view.getTag();
           holder.text.setText(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).getName());
           holder.checkbox.setChecked(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).isSelected());
+          
         return view;
     }
  

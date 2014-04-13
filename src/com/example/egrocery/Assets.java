@@ -18,7 +18,7 @@ public class Assets {
 	private boolean gotList;
 	private boolean gotItems;
 	private String[] getDBList = {MainList.LIST_NAME};
-	private String[] getDBItems = {ItemList.ITEM_NAME, ItemList.CATEGORY, ItemList.SELECTED};
+	private String[] getDBItems = {ItemList._ID, ItemList.ITEM_NAME, ItemList.CATEGORY, ItemList.SELECTED};
 	
 	public Assets(Context c) {
 		if(db == null) {
@@ -54,7 +54,7 @@ public class Assets {
 			
 			if(c.moveToFirst()) {
 				while (!c.isAfterLast()) {
-					itemView.add(new Item(c.getString(0), c.getString(1), c.getInt(2)>0));
+					itemView.add(new Item(c.getLong(0), c.getString(1), c.getString(2), c.getInt(3)>0));
 					c.moveToNext();
 				}
 			}
@@ -64,9 +64,22 @@ public class Assets {
 		return itemView;
 	}
 	
-	public void addItem(String name, String category, String list) {
+	public void updateItem(Item i) {
 		database = db.getWritableDatabase();
-		itemView.add(new Item(name, category, false));
+
+		// New value for one column
+		ContentValues values = new ContentValues();
+		values.put(ItemList.SELECTED, i.isSelected());
+
+		// Which row to update, based on the ID
+		String selection = ItemList._ID + " LIKE ?";
+		String[] selectionArgs = { String.valueOf(i.id) };
+
+		int count = database.update(ItemList.TABLE_NAME, values, selection, selectionArgs);
+	}
+	
+	public Item addItem(String name, String category, String list) {
+		database = db.getWritableDatabase();
 		long rowId;
 		ContentValues values = new ContentValues();
 		values.put(ItemList.ITEM_NAME, name);
@@ -75,8 +88,11 @@ public class Assets {
 		values.put(ItemList.SELECTED, false);
 		
 		rowId = database.insert(ItemList.TABLE_NAME, null, values);
-		
+		Item i = new Item(rowId, name, category, false);
+		itemView.add(i);
 		db.close();
+		
+		return i;
 	}
 	
 	public void addList(String name) {
