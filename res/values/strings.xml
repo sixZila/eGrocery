@@ -9,5 +9,7 @@
     <string name="newList">Add a New List</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="emptyList">Add a new list to begin.</string>
+    <string name="emptyItem">There are no items in this list.</string>
 
 </resources>

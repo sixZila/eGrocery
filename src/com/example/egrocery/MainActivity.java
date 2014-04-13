@@ -13,15 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private EditText editText;
 	private Button addButton;
 	private ListView listView;
+	private TextView emptyView;
 	private Assets assets;
 	private ArrayAdapter<String> adapter;
 	private Context context;
-	
+	private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,25 +32,34 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         
+        context.deleteDatabase("Grocery.db");
+        
         //INITIALIZE UI VARIABLES
         editText = (EditText) findViewById(R.id.editText);
 	    addButton = (Button) findViewById(R.id.addList);
 	    listView = (ListView) findViewById(R.id.listView);
+	    emptyView = (TextView) findViewById(R.id.emptyMainList);
 	    
 	    //INITIALIZE LISTVIEW ITEMS
 	    assets = new Assets(context);
-	    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, assets.getlistView());  
+	    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, assets.getlistView());
+	    listView.setEmptyView(emptyView);
 	    listView.setAdapter(adapter);
 
 	    addButton.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
 	    		// TODO Auto-generated method stub
-	    	   	assets.addList(editText.getText().toString());
-	    	   	/*
-	    	   	 * notifyDataSetChanged() notifies the attached observers that the underlying data has 
-	    	   	 * been changed and any View reflecting the data set should refresh itself
-	    	   	 */
-	    	   	adapter.notifyDataSetChanged();
+	    		if(editText.getText().toString().equals("")) {
+	    			toast = Toast.makeText(context, "Error: Please input a list name.", Toast.LENGTH_LONG);
+	    			toast.show();
+	    		} else if(assets.getlistView().contains(editText.getText().toString())) {
+	    			toast = Toast.makeText(context, "Error: Duplicate list names.", Toast.LENGTH_LONG);
+	    			toast.show();
+	    		} else {
+		    	   	assets.addList(editText.getText().toString());
+		    	   	adapter.notifyDataSetChanged();
+	    		}
+	    		editText.setText("");
 	    	}
 	    });
 	    listView.setOnItemClickListener(new OnItemClickListener() {

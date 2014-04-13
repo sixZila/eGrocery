@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 public class ItemActivity extends Activity{
 	
 	private Assets assets;
 	private String list;
+	private TextView emptyView;
 	private ExpandableListAdapter listAdapter;
 	private ExpandableListView expListView;
 	private List<String> listDataHeader;
@@ -29,6 +31,7 @@ public class ItemActivity extends Activity{
         
         //INITIALIZE UI VARIABLES
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        emptyView = (TextView) findViewById(R.id.emptyItemList);
 
         Intent i = getIntent();
         list = i.getStringExtra("title");
@@ -41,6 +44,7 @@ public class ItemActivity extends Activity{
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, assets);
  
         // setting list adapter
+        expListView.setEmptyView(emptyView);
         expListView.setAdapter(listAdapter);
 	}
 	
