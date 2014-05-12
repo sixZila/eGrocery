@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category_items">
+        <item>Asian Imports</item>
         <item>Baby Needs</item>
-        <item>Bathroom Essentials</item>
+        <item>Body Essentials</item>
         <item>Baked Goods</item>
+        <item>Breakfast</item>
         <item>Canned Goods</item>
+        <item>Chips</item>
+        <item>Cooking Oils</item>
         <item>Dairy</item>
         <item>Drinks</item>
-        <item>Frozen Foods</item>
-        <item>Fruits and Vegetables</item>
+        <item>Food Storage</item>
+        <item>Fruits</item>
+        <item>Hair Essentials</item>
         <item>Kitchenware</item>
+        <item>Kitchen Liquids</item>
         <item>Laundry</item>
         <item>Meats</item>
         <item>Noodles</item>
-        <item>Pet Care</item>
+        <item>Pet Food</item>
+        <item>Picnic Items</item>
+        <item>Pillows and Doormats</item>
         <item>Rice</item>
-        <item>Sauces and Spices</item>
-        <item>Snacks</item>
+        <item>Sanitary Needs</item>
+        <item>Sauces</item>
         <item>Seafood</item>
-        <item>Toiletries</item>
-        <item>Miscellaneous</item>
+        <item>Shampoo and Conditioner</item>
+        <item>Sugar</item>
+        <item>Sweets</item>
+        <item>Vegetables</item>
+        <item>Western Imports</item>
     </string-array>
 </resources>

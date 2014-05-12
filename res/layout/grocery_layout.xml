@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/exitGroceryViewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="208dp"
+        android:text="Done" />
+
+    <Button
+        android:id="@+id/aisle1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="475dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="1"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/fruitAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="17dp"
+        android:layout_height="110dp"
+        android:layout_x="512dp"
+        android:layout_y="72dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="F\nR\nU\nI\nT\nS"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="452dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="2"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="430dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="3"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle5"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="388dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="5"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle6"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="368dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="6"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle7"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="348dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="7"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle9"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="308dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="9"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle10"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="289dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="10"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle11"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="268dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="11"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle12"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="248dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="12"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle14"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="228dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="14"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle16"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="189dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="16"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle18"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="151dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="18"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle19"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="132dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="19"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle24"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="35dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="24"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/breakfastAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="17dp"
+        android:layout_height="110dp"
+        android:layout_x="2dp"
+        android:layout_y="73dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="B\nR\nE\nA\nK\nF\nA\nS\nT"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle4"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="410dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="4"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle23"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="54dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="23"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle22"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="75dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="22"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle21"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="94dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="21"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/dairyAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="138dp"
+        android:layout_y="8dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="DAIRY"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/milkAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="85dp"
+        android:layout_y="8dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="MILK"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/babyAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="20dp"
+        android:layout_y="20dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="BABY NEEDS"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/veggieAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_x="449dp"
+        android:layout_y="26dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="VEGGIES"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/seafoodAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="395dp"
+        android:layout_y="9dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="SEAFOOD"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle8"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="329dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="8"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle15"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="209dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="15"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle17"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="170dp"
+        android:layout_y="94dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="17"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/aisle20"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="15dp"
+        android:layout_height="84dp"
+        android:layout_x="113dp"
+        android:layout_y="95dp"
+        android:background="#CCCCCC"
+        android:clickable="false"
+        android:text="20"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/meatAisle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:layout_x="191dp"
+        android:layout_y="9dp"
+        android:background="#cccccc"
+        android:clickable="false"
+        android:text="MEATS"
+        android:textSize="10sp" />
+
+</AbsoluteLayout>

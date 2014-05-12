@@ -80,6 +80,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             ((ViewHolder) view.getTag()).checkbox.setTag(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition));
           }
         
+        
           ViewHolder holder = (ViewHolder) view.getTag();
           holder.text.setText(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).getName());
           holder.checkbox.setChecked(_listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition).isSelected());
@@ -147,5 +148,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     
     public void setStatus(int status) {
     	this.status = status;
+    }
+    
+    public int getStatus() {
+    	return status;
     }
 }

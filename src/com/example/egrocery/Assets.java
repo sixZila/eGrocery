@@ -120,11 +120,24 @@ public class Assets {
 	public void deleteList(String name) {
 		database = db.getWritableDatabase();
 		
-		String selection = MainList._ID + " LIKE ?";
+		String selection = MainList._ID + " =? ";
 		String[] selectionArgs = { String.valueOf(listID.get(name)) };
-		listView.remove(name);
 		
 		database.delete(MainList.TABLE_NAME, selection, selectionArgs);
+		
+		selection = ItemList.LIST + " =? ";
+		selectionArgs[0] = name;
+		database.delete(ItemList.TABLE_NAME, selection, selectionArgs);
+		
+		db.close();
+	}
+	
+	public void deleteItem(Item item) {
+		database = db.getWritableDatabase();
+		
+		String selection = ItemList._ID + " =? ";
+		String[] selectionArgs = {String.valueOf(item.id)};
+		database.delete(ItemList.TABLE_NAME, selection, selectionArgs);
 		
 		db.close();
 	}
